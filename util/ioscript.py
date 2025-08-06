@@ -817,7 +817,7 @@ if args.pad_frame_sv != None:
                 elif sysio[sysionames[ionum][:-2]] == 'snoop':
                     pad_frame_sv.write("      assign %s = io_in_o[%d];\n" % (sysionames[ionum], ionum))
             #pad_frame_sv.write("    pad_functional_pd i_pad_%d   (.OEN(~io_oe_i[%d]), .I(io_out_i[%d]), .O(io_in_o[%d]), .PAD(io[%d]), .PEN(~pad_cfg_i[%d][0]));\n" %\
-            pad_frame_sv.write("    sg13g2_IOPadInOut4mA i_pad_%d   (.c2p_en(~io_oe_i[%d]), .c2p(io_out_i[%d]), .p2c(io_in_o[%d]), .pad(io[%d]));\n" %\
+            pad_frame_sv.write("    sg13g2_IOPadInOut4mA sg13g2_IOPad_io_%d   (.c2p_en(~io_oe_i[%d]), .c2p(io_out_i[%d]), .p2c(io_in_o[%d]), .pad(io[%d]));\n" %\
             (ionum, ionum, ionum, ionum, ionum))
         pad_frame_sv.write("\n")
         pad_frame_sv.write("endmodule\n")
