@@ -159,14 +159,6 @@
 	  },
 	  "comment": "udma channels for filter handled externally"
 	},
-	{ "name": "fpga",
-	  "usable":	true,
-	  "type":		"udma",
-	  "ports": {
-	  },
-	  "udma_tx": ["tx_fpga"],
-	  "udma_rx": ["rx_fpga"]
-	},
 	{ "name": "ext_per",
 	  "usable":	true,
 	  "type":		"udma",
