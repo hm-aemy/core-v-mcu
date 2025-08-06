@@ -218,6 +218,7 @@ if args.perdef_json != None:
 ################################################
 if args.soc_defines != None and args.pin_table != None:
     sysionames = [-1 for row in range(int(soc_defines['N_IO']))]    # row for each sysiso = [ionum, 'name']
+    print("POPULATING")
     N_IO = int(soc_defines['N_IO'])
     N_PERIO = perio_index
     N_GPIO = int(soc_defines['N_APBIO'])
@@ -293,6 +294,7 @@ if args.soc_defines != None and args.pin_table != None:
                             else:
                                 io_oe_mux[io_num][sel] = "1'b0"
                             perio_in_mux[index][sel] = "io_in_i[" + str(io_num) + "]"
+    print("END OF POPULATION")
     f_pin_table.close()
 
 ######################################################################
@@ -814,8 +816,9 @@ if args.pad_frame_sv != None:
                     pad_frame_sv.write("      assign %s = io_in_o[%d];\n" % (sysionames[ionum], ionum))
                 elif sysio[sysionames[ionum][:-2]] == 'snoop':
                     pad_frame_sv.write("      assign %s = io_in_o[%d];\n" % (sysionames[ionum], ionum))
-            pad_frame_sv.write("    pad_functional_pd i_pad_%d   (.OEN(~io_oe_i[%d]), .I(io_out_i[%d]), .O(io_in_o[%d]), .PAD(io[%d]), .PEN(~pad_cfg_i[%d][0]));\n" %\
-            (ionum, ionum, ionum, ionum, ionum, ionum))
+            #pad_frame_sv.write("    pad_functional_pd i_pad_%d   (.OEN(~io_oe_i[%d]), .I(io_out_i[%d]), .O(io_in_o[%d]), .PAD(io[%d]), .PEN(~pad_cfg_i[%d][0]));\n" %\
+            pad_frame_sv.write("    sg13g2_IOPadInOut4mA i_pad_%d   (.c2p_en(~io_oe_i[%d]), .c2p(io_out_i[%d]), .p2c(io_in_o[%d]), .pad(io[%d]));\n" %\
+            (ionum, ionum, ionum, ionum, ionum))
         pad_frame_sv.write("\n")
         pad_frame_sv.write("endmodule\n")
 

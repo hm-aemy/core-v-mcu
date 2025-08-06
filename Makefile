@@ -228,3 +228,19 @@ downloadn:
 downloadg:
 	vivado -mode batch -source emulation/xilinx/tcl/download.tcl -tclargs\
              emulation/core_v_mcu_genesys2.bit xc7k325t_0
+
+
+.PHONEY: asic
+asic:
+				@echo "*************************************"
+				@echo "*                                   *"
+				@echo "* setting up ASIC specific files   *"
+				@echo "*                                   *"
+				@echo "*************************************"
+				mkdir -p emulation/core-v-mcu-asic/rtl
+				python3 util/ioscript.py\
+					--soc-defines rtl/includes/pulp_soc_defines.svh\
+					--perdef-json perdef.json \
+					--pin-table nexys-pin-table.csv \
+					--pad-control rtl/core-v-mcu/top/pad_control.sv\
+					--pad-frame rtl/core-v-mcu/top/pad_frame.sv\
